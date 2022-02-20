@@ -1,13 +1,25 @@
 import React from "react";
 
 class AddContact extends React.Component {
+    state = {name: "", email: ""}
+
+    add = (e) => {
+        e.preventDefault();
+        if(this.state.name === "" || this.state.email === "") {
+            alert("Please fill all fields!");
+            return
+        }
+        this.props.addContactHandler(this.state);
+        this.setState({ name: "", email: ""})
+    }
+
     render() {
         return (
             
             <div className="ui main">
                 <br></br>
                 <h2> Add Contact</h2>
-                <form className="ui form">
+                <form className="ui form" onSubmit= {this.add}>
 
                     <div className="field">
                         <label>Name</label>
@@ -15,6 +27,8 @@ class AddContact extends React.Component {
                                type="text" 
                                name="name" 
                                placeholder="Name"
+                               value= {this.state.name}
+                               onChange = {(e) => this.setState ({name: e.target.value})}
                             />
                     </div>
 
@@ -24,6 +38,8 @@ class AddContact extends React.Component {
                                type="text" 
                                name="email" 
                                placeholder="Email"
+                               value= {this.state.email}
+                               onChange = {(e) => this.setState ({email: e.target.value})}
                             />
                     </div>
 
